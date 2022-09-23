@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import styles from './Auth.module.css';
+import { GET_TOKEN, CREATE_USER } from '../queries';
 import { useMutation } from '@apollo/client';
 import jwtDecode from 'jwt-decode';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
-
-import { GET_TOKEN, CREATE_USER } from '../queries';
-import styles from './Auth.module.css';
 
 const Auth = () => {
   const [username, setUsername] = useState('');
@@ -54,7 +53,7 @@ const Auth = () => {
 
   return (
     <div className={styles.auth}>
-      <form className={authUser}>
+      <form onSubmit={authUser}>
         <div className={styles.auth__input}>
           <label>Username: </label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -65,6 +64,7 @@ const Auth = () => {
         </div>
 
         <button type="submit">{isLogin ? 'Login with JWT' : 'Create new user'}</button>
+
         <div>
           <FlipCameraAndroidIcon className={styles.auth__toggle} onClick={() => setIsLogin(!isLogin)} />
         </div>
